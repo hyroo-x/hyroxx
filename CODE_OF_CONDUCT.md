@@ -1,10 +1,10 @@
 # Code of Conduct
 
-## HyroxX Community
+## Hyroxx Community
 
-HyroxX is an independently maintained Baileys fork focused on interactive messaging, button functionality, and customization for WhatsApp automation developers.
+Hyroxx is an independently maintained Baileys fork focused on interactive messaging, button functionality, and customization for WhatsApp automation developers.
 
-We are committed to maintaining a respectful, inclusive, and constructive environment for everyone participating in the HyroxX project.
+We are committed to maintaining a respectful, inclusive, and constructive environment for everyone participating in the Hyroxx project.
 
 ## Expected Behavior
 
@@ -35,7 +35,7 @@ Contributors should explain their changes clearly, test them when reasonably pos
 
 Code adapted from other projects must respect the applicable licenses and attribution requirements.
 
-HyroxX is based on WhiskeySockets/Baileys. Some button-related and interactive messaging development is inspired by implementations in ItsLiaaa's Baileys project. These acknowledgments do not imply official affiliation or endorsement.
+Hyroxx is based on WhiskeySockets/Baileys. Some button-related and interactive messaging development is inspired by implementations in ItsLiaaa's Baileys project. These acknowledgments do not imply official affiliation or endorsement.
 
 ## Reporting Issues
 
@@ -53,11 +53,11 @@ Actions will be proportionate to the severity and frequency of the behavior.
 
 ## Scope
 
-This Code of Conduct applies to project repositories, issues, pull requests, discussions, and other spaces where someone represents or participates in the HyroxX community.
+This Code of Conduct applies to project repositories, issues, pull requests, discussions, and other spaces where someone represents or participates in the Hyroxx community.
 
 ## Project Information
 
-- Project: HyroxX
+- Project: Hyroxx
 - Base project: WhiskeySockets/Baileys
 - Button implementation inspiration: ItsLiaaa/Baileys
-- Maintained by: HyroxX project maintainer
+- Maintained by: Hyroxx project maintainer
