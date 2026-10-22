@@ -308,7 +308,7 @@ export const prepareWAMessageMedia = async (
 			mediaKeyTimestamp: unixTimestampSeconds(),
 			...uploadData,
 			media: undefined
-		} as any)
+		})
 	})
 
 	if (uploadData.ptv) {
@@ -389,7 +389,62 @@ export const hasNonNullishProperty = <K extends PropertyKey>(
 }
 
 function hasOptionalProperty<T, K extends PropertyKey>(obj: T, key: K): obj is WithKey<T, K> {
-	return typeof obj === 'object' && obj !== null && key in obj && (obj as any)[key] !== null
+	if (typeof obj !== 'object' || obj === null || !(key in obj)) return false
+	return Reflect.get(obj, key) !== null
+}
+
+type NativeFlowButtonInput = {
+	id?: string
+	text?: string
+	buttonText?: string
+	copy?: string
+	url?: string
+	call?: string
+	sections?: unknown[]
+	[key: string]: unknown
+}
+
+type NativeFlowInput = {
+	nativeFlow?: NativeFlowButtonInput[] | { buttons?: NativeFlowButtonInput[] }
+}
+
+const prepareNativeFlowButtons = (
+	message: NativeFlowInput
+): { buttons: proto.Message.InteractiveMessage.NativeFlowMessage.INativeFlowButton[]; messageParamsJson: string } => {
+	const field = message.nativeFlow
+	const buttons = Array.isArray(field) ? field : field?.buttons || []
+	return {
+		buttons: buttons.map((button: NativeFlowButtonInput) => {
+			const text = button.text || button.buttonText || 'Click'
+			if (button.id)
+				return {
+					name: 'quick_reply',
+					buttonParamsJson: JSON.stringify({ display_text: text, id: button.id })
+				}
+			if (button.copy)
+				return {
+					name: 'cta_copy',
+					buttonParamsJson: JSON.stringify({ display_text: text, copy_code: button.copy })
+				}
+			if (button.url)
+				return {
+					name: 'cta_url',
+					buttonParamsJson: JSON.stringify({ display_text: text, url: button.url, merchant_url: button.url })
+				}
+			if (button.call)
+				return {
+					name: 'cta_call',
+					buttonParamsJson: JSON.stringify({ display_text: text, phone_number: button.call })
+				}
+			if (button.sections)
+				return {
+					name: 'single_select',
+					buttonParamsJson: JSON.stringify({ title: text, sections: button.sections })
+				}
+			return { name: undefined, buttonParamsJson: JSON.stringify(button) }
+		}),
+		messageParamsJson: '{}'
+	}
 }
 
 export const generateWAMessageContent = async (
@@ -607,8 +662,135 @@ export const generateWAMessageContent = async (
 				initiatedByMe: true
 			}
 		}
+	} else if ('cards' in message) {
+		const msg = message as any
+		const cards = await Promise.all(
+			(msg.cards || []).map(async (card: any) => {
+				let carouselHeader: any = {}
+				carouselHeader = await prepareWAMessageMedia(card, options).catch(() => ({}))
+
+				const hasHeader = !!(
+					carouselHeader.imageMessage ||
+					carouselHeader.videoMessage ||
+					carouselHeader.productMessage
+				)
+
+				if (!hasHeader) {
+					throw new Boom('Invalid media type for carousel card', { statusCode: 400 })
+				}
+
+				const carouselCard: any = {
+					nativeFlowMessage: prepareNativeFlowButtons(card.nativeFlow ? card : [])
+				}
+
+				if (card.text !== null && card.text !== undefined) {
+					carouselCard.body = { text: card.text }
+				} else {
+					if (card.caption !== null && card.caption !== undefined) {
+						carouselCard.header = {
+							title: card.title || '',
+							subtitle: card.subtitle || '',
+							hasMediaAttachment: true
+						}
+						carouselCard.body = { text: card.caption }
+					}
+
+					if (card.thumbnail) carouselCard.jpegThumbnail = card.thumbnail
+					carouselCard.header = { ...(carouselCard.header || {}), ...carouselHeader }
+				}
+
+				if (card.audioFooter !== null && card.audioFooter !== undefined) {
+					const { audioMessage } = await prepareWAMessageMedia({ audio: card.audioFooter }, options)
+					carouselCard.footer = { audioMessage, hasMediaAttachment: true }
+				} else if (card.footer !== null && card.footer !== undefined) {
+					carouselCard.footer = { text: card.footer }
+				}
+
+				return carouselCard
+			})
+		)
+
+		m = {
+			interactiveMessage: {
+				carouselMessage: {
+					cards,
+					carouselCardType: 1,
+					messageVersion: 1
+				},
+				...(msg.text !== null && msg.text !== undefined ? { body: { text: msg.text } } : {}),
+				...(msg.footer !== null && msg.footer !== undefined ? { footer: { text: msg.footer } } : {})
+			}
+		}
+	} else if ('buttons' in message) {
+		const msg = message as any
+		m = {
+			buttonsMessage: {
+				contentText: msg.text || msg.caption || '',
+				footerText: msg.footer || '',
+				buttons: (msg.buttons || []).map((b: any, i: number) => ({
+					buttonId: b.id || b.buttonId || String(i + 1),
+					buttonText: { displayText: b.text || b.buttonText?.displayText || b.buttonText || 'Click' },
+					type: b.type || 1
+				})),
+				headerType: 1
+			}
+		}
+	} else if ('sections' in message) {
+		const msg = message as any
+		m = {
+			listMessage: {
+				title: msg.title || '',
+				description: msg.text || '',
+				buttonText: msg.buttonText || 'Select',
+				footerText: msg.footer || '',
+				listType: 1,
+				sections: msg.sections || []
+			}
+		}
+	} else if ('templateButtons' in message) {
+		const msg = message as any
+		m = {
+			templateMessage: {
+				hydratedTemplate: {
+					hydratedContentText: msg.text || msg.caption || msg.title || '',
+					hydratedFooterText: msg.footer || '',
+					hydratedButtons: (msg.templateButtons || []).map((b: any, i: number) => ({
+						index: b.index ?? i + 1,
+						...(b.url
+							? { urlButton: { displayText: b.text || b.buttonText || 'Open link', url: b.url } }
+							: b.call
+								? { callButton: { displayText: b.text || b.buttonText || 'Call', phoneNumber: b.call } }
+								: { quickReplyButton: { displayText: b.text || b.buttonText || 'Select', id: b.id || String(i + 1) } })
+					}))
+				},
+				templateId: msg.id || `template-${Date.now()}`
+			}
+		}
+	} else if ('nativeFlow' in message) {
+		const msg = message as any
+		m = {
+			interactiveMessage: {
+				body: { text: msg.text || msg.caption || '' },
+				footer: { text: msg.footer || '' },
+				header: msg.title ? { title: msg.title, subtitle: msg.subtitle || '', hasMediaAttachment: false } : undefined,
+				nativeFlowMessage: prepareNativeFlowButtons(msg)
+			}
+		}
 	} else {
 		m = await prepareWAMessageMedia(message, options)
+	}
+
+	if ('interactiveAsTemplate' in message && (message as any).interactiveAsTemplate) {
+		if (!(m as any).interactiveMessage) {
+			throw new Boom('Invalid message type for template', { statusCode: 400 })
+		}
+
+		m = {
+			templateMessage: {
+				interactiveMessageTemplate: (m as any).interactiveMessage,
+				templateId: (message as any).id || `template-${Date.now()}`
+			}
+		}
 	}
 
 	if (hasOptionalProperty(message, 'viewOnce') && !!message.viewOnce) {

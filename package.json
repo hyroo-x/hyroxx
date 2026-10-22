@@ -1,15 +1,16 @@
 {
-  "name": "baileys",
+  "name": "hyroxx",
   "type": "module",
-  "version": "7.0.0-rc14",
-  "description": "A WebSockets library for interacting with WhatsApp Web",
+  "version": "1.1.7",
+  "description": "HyroxX is an enhanced Baileys fork based on WhiskeySockets/Baileys, featuring nativeFlow support, CTA copy buttons, interactive messaging, and custom improvements for modern WhatsApp automation. Built for developers who value flexibility, performance, and customization. Inspired by the Baileys ecosystem and ItsLiaaa implementations.",
   "keywords": [
     "whatsapp",
     "automation"
   ],
-  "homepage": "https://github.com/WhiskeySockets/Baileys/",
+  "homepage": "https://github.com/hyroo-x/hyroxx",
   "repository": {
-    "url": "git@github.com:WhiskeySockets/Baileys.git"
+    "url": "git+https://github.com/hyroo-x/hyroxx.git",
+    "type": "git"
   },
   "license": "MIT",
   "author": "Rajeh Taher",
@@ -18,7 +19,8 @@
   "files": [
     "lib/**/*",
     "WAProto/**/*",
-    "engine-requirements.js"
+    "engine-requirements.js",
+    "Media/**/*"
   ],
   "scripts": {
     "build:all": "npm run build && npm run build:docs",

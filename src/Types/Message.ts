@@ -85,14 +85,7 @@ export type MessageWithContextInfo =
 export type DownloadableMessage = { mediaKey?: Uint8Array | null; directPath?: string | null; url?: string | null }
 
 export type MessageReceiptType =
-	| 'read'
-	| 'read-self'
-	| 'hist_sync'
-	| 'peer_msg'
-	| 'sender'
-	| 'inactive'
-	| 'played'
-	| undefined
+	'read' | 'read-self' | 'hist_sync' | 'peer_msg' | 'sender' | 'inactive' | 'played' | undefined
 
 export type MediaConnInfo = {
 	auth: string
@@ -229,7 +222,86 @@ export type WASendableProduct = Omit<proto.Message.ProductMessage.IProductSnapsh
 	productImage: WAMediaUpload
 }
 
+type HyroxNativeFlowButton = {
+	id?: string
+	text?: string
+	buttonText?: string
+	copy?: string
+	url?: string
+	call?: string
+	sections?: Array<{ title?: string; rows?: Array<{ id?: string; title?: string; description?: string }> }>
+}
+
+type HyroxNativeFlow = HyroxNativeFlowButton[] | { buttons?: HyroxNativeFlowButton[] }
+
 export type AnyRegularMessageContent = (
+	| {
+			buttons: Array<{
+				id?: string
+				buttonId?: string
+				text?: string
+				buttonText?: string | { displayText?: string }
+				type?: number
+				name?: string
+				paramsJson?: string
+				sections?: Array<{ title?: string; rows?: Array<{ id?: string; title?: string; description?: string }> }>
+			}>
+			text?: string
+			caption?: string
+			footer?: string
+	  }
+	| {
+			sections: Array<{ title?: string; rows?: Array<{ id?: string; title?: string; description?: string }> }>
+			text?: string
+			title?: string
+			footer?: string
+			buttonText: string
+	  }
+	| {
+			templateButtons: Array<{
+				id?: string
+				text?: string
+				buttonText?: string
+				url?: string
+				call?: string
+				index?: number
+			}>
+			text?: string
+			caption?: string
+			title?: string
+			footer?: string
+			id?: string
+	  }
+	| {
+			nativeFlow: HyroxNativeFlow
+			text?: string
+			caption?: string
+			title?: string
+			subtitle?: string
+			footer?: string
+			thumbnail?: Uint8Array
+			audioFooter?: boolean
+			bizJid?: string
+			shopSurface?: string
+			id?: string
+			offerText?: string
+			offerUrl?: string
+			offerCode?: string
+			offerExpiration?: number
+			optionText?: string
+			optionTitle?: string
+	  }
+	| {
+			cards: Array<{
+				text?: string
+				title?: string
+				body?: string
+				footer?: string
+				buttons?: Array<{ id?: string; text?: string; url?: string; call?: string }>
+			}>
+			text?: string
+			footer?: string
+	  }
 	| ({
 			text: string
 			linkPreview?: WAUrlInfo | null

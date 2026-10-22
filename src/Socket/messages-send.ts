@@ -67,6 +67,7 @@ import {
 	PSA_WID,
 	S_WHATSAPP_NET
 } from '../WABinary'
+import { getBizBinaryNode, shouldIncludeBizBinaryNode } from '../WABinary/generic-utils'
 import { USyncQuery, USyncUser } from '../WAUSync'
 import { makeNewsletterSocket } from './newsletter'
 
@@ -1092,6 +1093,12 @@ export const makeMessagesSocket = (config: SocketConfig) => {
 				;(stanza.content as BinaryNode[]).push(...additionalNodes)
 			}
 
+			const alreadyHasBizNode = (stanza.content as BinaryNode[]).some(node => node.tag === 'biz')
+
+			if (!alreadyHasBizNode && shouldIncludeBizBinaryNode(message)) {
+				;(stanza.content as BinaryNode[]).push(getBizBinaryNode(message))
+			}
+
 			logger.debug({ msgId }, `sending message to ${participants.length} devices`)
 
 			await sendNode(stanza)
@@ -1389,14 +1396,14 @@ export const makeMessagesSocket = (config: SocketConfig) => {
 						attrs: {
 							polltype: 'creation'
 						}
-					} as BinaryNode)
+					})
 				} else if (isEventMsg) {
 					additionalNodes.push({
 						tag: 'meta',
 						attrs: {
 							event_type: 'creation'
 						}
-					} as BinaryNode)
+					})
 				}
 
 				await relayMessage(jid, fullMsg.message!, {
