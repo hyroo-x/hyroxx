@@ -52,7 +52,7 @@
     "type": "git"
   },
   "license": "MIT",
-  "author": "Rajeh Taher",
+  "author": "Hyroxx Team",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
