@@ -1,63 +1,66 @@
 
 
-## Hyroxx Community
+## Our Commitment
 
-Hyroxx is an independently maintained Baileys fork focused on interactive messaging, button functionality, and customization for WhatsApp automation developers.
+The Hyrox project is committed to creating a welcoming, respectful, and inclusive environment for everyone, regardless of experience level, background, or identity.
 
-We are committed to maintaining a respectful, inclusive, and constructive environment for everyone participating in the Hyroxx project.
+We believe that collaboration, mutual respect, and constructive communication help build a better community.
 
 ## Expected Behavior
 
-Community members are expected to:
+All community members are expected to:
 
-- Be respectful, professional, and considerate.
-- Provide constructive feedback and technical discussions.
-- Welcome different opinions and experience levels.
-- Give appropriate credit to original authors and contributors.
-- Respect copyright notices, software licenses, and attribution requirements.
-- Report bugs clearly and provide accurate information.
-- Protect other people's privacy and confidential information.
+- Treat everyone with respect and kindness.
+- Communicate clearly, politely, and professionally.
+- Welcome constructive feedback and different perspectives.
+- Help newcomers learn and participate.
+- Focus on improving the project through meaningful contributions.
+- Respect the privacy and boundaries of other members.
+- Follow the rules and guidelines of the platforms used by the project.
 
 ## Unacceptable Behavior
 
-The following behavior is not permitted:
+The following behavior is not tolerated:
 
-- Harassment, threats, discrimination, or personal attacks.
-- Trolling, spam, or deliberately disruptive conduct.
-- Sharing private information without permission.
-- Claiming ownership of code or contributions created by others.
-- Submitting intentionally misleading reports or malicious contributions.
-- Misrepresenting project features, compatibility, or affiliations.
+- Harassment, bullying, discrimination, or intimidation.
+- Personal attacks, insults, threats, or hateful language.
+- Sharing private or confidential information without permission.
+- Deliberate disruption of discussions or project activities.
+- Spam, malicious content, or abusive use of project resources.
+- Any conduct that makes the community unsafe or unwelcoming.
 
 ## Contributions
 
-Contributors should explain their changes clearly, test them when reasonably possible, and avoid unrelated modifications.
+Contributions such as bug reports, feature requests, documentation, and code improvements are welcome.
 
-Code adapted from other projects must respect the applicable licenses and attribution requirements.
+Please provide clear explanations, relevant details, and respectful feedback when submitting issues or pull requests. Contributions should focus on the project's goals and follow any applicable guidelines.
 
-Hyroxx is based on WhiskeySockets/Baileys. Some button-related and interactive messaging development is inspired by implementations in ItsLiaaa's Baileys project. These acknowledgments do not imply official affiliation or endorsement.
+The project maintainer may request changes or decline contributions that do not meet project standards.
 
 ## Reporting Issues
 
-Report violations privately to the project maintainer through an available project contact channel.
+If you experience or witness behavior that violates this Code of Conduct, contact the project maintainer through the official GitHub repository:
 
-Please do not publish passwords, authentication tokens, WhatsApp session credentials, or other sensitive information in public issues.
+https://github.com/hyroo-x/hyroxx
 
-Reports will be reviewed fairly, with reasonable care for privacy.
+Please provide enough information to help the maintainer understand the situation. Reports will be handled as respectfully and confidentially as reasonably possible.
 
 ## Enforcement
 
-The project maintainer may remove inappropriate content, reject contributions, close discussions, or restrict participation when necessary.
+The project maintainer is responsible for interpreting and enforcing this Code of Conduct.
 
-Actions will be proportionate to the severity and frequency of the behavior.
+Depending on the severity and frequency of a violation, actions may include a warning, removal of inappropriate content, temporary restrictions, or permanent exclusion from project spaces.
+
+All enforcement decisions should be fair and proportionate to the situation.
 
 ## Scope
 
-This Code of Conduct applies to project repositories, issues, pull requests, discussions, and other spaces where someone represents or participates in the Hyroxx community.
+This Code of Conduct applies to all Hyrox project spaces, including repositories, issues, pull requests, discussions, and other community activities associated with the project.
+
+It also applies when someone represents the project or its community in public spaces.
 
 ## Project Information
 
-- Project: Hyroxx
-- Base project: WhiskeySockets/Baileys
-- Button implementation inspiration: ItsLiaaa/Baileys
-- Maintained by: Hyroxx project maintainer
+Hyrox is an open-source project. By participating in its community, you agree to follow this Code of Conduct and help maintain a respectful environment for everyone.
+
+Thank you for helping make the Hyrox community better.
