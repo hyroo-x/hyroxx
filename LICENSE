@@ -1,0 +1,61 @@
+Hyrox — An Independent Baileys Fork
+
+About the Project
+
+Hyrox is an independently maintained fork of Baileys, developed to extend, customize, and improve the messaging capabilities available to WhatsApp automation developers.
+
+The project is built upon the foundation of "WhiskeySockets/Baileys" (https://github.com/WhiskeySockets/Baileys), which provides the underlying WhatsApp Web communication library and core functionality. Hyrox continues to build on this foundation while introducing additional development, modifications, and experimental improvements focused on interactive messaging and developer flexibility.
+
+Hyrox is maintained as an independent project and is not an official release of WhiskeySockets or any other upstream project.
+
+Development and Maintenance
+
+Hyrox is developed and maintained under the Hyrox project identity. Development focuses on adapting the existing Baileys foundation, integrating selected interactive messaging capabilities, improving compatibility where possible, and making additional features available to developers building WhatsApp automation systems.
+
+The goal of Hyrox is to provide developers with a flexible foundation for creating and maintaining their own WhatsApp bots, while preserving recognition of the upstream projects and contributors whose work made this development possible.
+
+Project Foundation and Inspiration
+
+Base Project — WhiskeySockets/Baileys
+
+Hyrox uses WhiskeySockets/Baileys as its underlying project foundation. The original project's architecture, existing functionality, and applicable license notices remain acknowledged. Hyrox does not claim ownership of the original upstream code.
+
+Interactive Buttons and Native Flow — ItsLiaaa
+
+Some button-related development and interactive messaging approaches in Hyrox were inspired by implementations found in "ItsLiaaa's Baileys project" (https://github.com/itsliaaa/baileys). This inspiration relates to extending support for interactive message structures and button functionality, including native-flow-related features.
+
+The Hyrox project acknowledges the work and ideas that helped inform these improvements. This acknowledgment does not imply that ItsLiaaa officially develops, maintains, endorses, or sponsors Hyrox.
+
+Project Goals
+
+Hyrox aims to:
+
+- Extend interactive messaging capabilities for WhatsApp automation.
+- Explore support for native-flow messages and related button structures.
+- Provide additional flexibility for developers customizing their bot systems.
+- Maintain compatibility with the underlying Baileys architecture where practical.
+- Encourage experimentation, learning, and further development within the WhatsApp automation ecosystem.
+- Preserve appropriate attribution to upstream projects and third-party contributors.
+- Continue improving the fork through independent development and testing.
+
+Independence and Attribution
+
+Hyrox is an independent community project. It is not affiliated with, endorsed by, or officially supported by WhatsApp, Meta, WhiskeySockets, or ItsLiaaa unless explicitly stated by those parties.
+
+The names WhiskeySockets, Baileys, ItsLiaaa, and other referenced projects remain associated with their respective owners and contributors. Their names are used here to identify the project's technical foundation and sources of inspiration.
+
+Copyright notices, license terms, and third-party attributions applicable to redistributed code must remain intact. Any modifications made by Hyrox should not be interpreted as transferring ownership of the original code to the Hyrox project.
+
+License Notice
+
+The original Baileys license and copyright notice are retained below. This project description is provided for identification and attribution purposes and does not replace, override, or modify the terms of the applicable upstream license.
+
+For details regarding permissions, redistribution, modification, and warranty disclaimers, refer to the original MIT License text that follows.
+
+---
+
+Original project: WhiskeySockets/Baileys
+Button implementation inspiration: ItsLiaaa/Baileys
+Independent fork and maintenance: Hyrox
+
+Original upstream copyright notices and all applicable third-party license requirements remain in effect.
